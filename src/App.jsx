@@ -5,12 +5,36 @@ import './App.css';
 function App() {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [recipes, setRecipes] = useState([{id: 1, name: 'Blue Milk'}]);
-	const [currentIngredients, setCurrentIngredients] = useState(1);
-	const [currentInstructions, setCurrentInstructions] = useState(1);
+	const [ingredientsNumbers, setingredientsNumbers] = useState([1]);
+	const [instructionsNumbers, setInstructionsNumbers] = useState([1]);
 
 	function handleRecipeItemClick(event) {
+		const recipeID = event.target.getAttribute('data-recipe-id');
+		setingredientsNumbers([1]);
+		setInstructionsNumbers([1]);
 		setModalVisible(true);
-		console.log(event.target.textContent);
+	}
+
+	function handleAddIngredientClick() {
+		const lastValue = ingredientsNumbers[ingredientsNumbers.length - 1];
+		setingredientsNumbers([
+			...ingredientsNumbers,
+			lastValue + 1
+		]);
+	}
+
+	function handleAddInstructionClick() {
+		const lastValue = instructionsNumbers[instructionsNumbers.length - 1];
+		setInstructionsNumbers([
+			...instructionsNumbers,
+			lastValue + 1
+		]);
+	}
+
+	function handleRecipeSave(event) {
+		const form = event.target.parentElement;
+		//const name = form.
+		//setModalVisible(false);
 	}
 
 	return (
@@ -25,34 +49,41 @@ function App() {
 				<ul className='menu-list'>
 					{recipes.map(recipe => (
 						<li key={recipe.id}>
-							<a onClick={handleRecipeItemClick}>{recipe.name}</a>
+							<a onClick={handleRecipeItemClick} data-recipe-id={recipe.id}>{recipe.name}</a>
 						</li>
 					))}
 				</ul>
 			</div>
 			<div className={`modal ${modalVisible ? 'is-active' : ''}`}>
 			<div className='modal-background'></div>
-			<form className='modal-content'>
+			<div className='modal-content'>
 				<div className='field'>
 					<label className='label'>Name</label>
 					<div className='control'>
 						<input className='input' type='text' placeholder='e.g. Pepperoni Pizza' />
 					</div>
 				</div>
-				<div className='field'>
-					<label className='label'>Ingredient 1</label>
-					<div className='control'>
-						<input className='input' type='text' placeholder='e.g. 3 cups of flour' />
+
+				{ingredientsNumbers.map(number => (
+					<div className='field' key={number}>
+						<label className='label'>Ingredient {number}</label>
+						<div className='control'>
+							<input className='input' type='text' placeholder='e.g. 3 cups of flour' />
+						</div>
 					</div>
-				</div>
-				<button className='button'>Add New Ingredient</button>
-				<div className='field'>
-					<label className='label'>Instruction 1</label>
-					<div className='control'>
-						<textarea className='textarea' placeholder='e.g. Add the flour to a 6 x 12 inch non-stick pan'></textarea>
+				))}
+				<button onClick={handleAddIngredientClick} className='button'>Add New Ingredient</button>
+
+				{instructionsNumbers.map(number => (
+					<div className='field' key={number}>
+						<label className='label'>Instruction {number}</label>
+						<div className='control'>
+							<textarea className='textarea' placeholder='e.g. Add the flour to a 6 x 12 inch non-stick pan'></textarea>
+						</div>
 					</div>
-				</div>
-				<button className='button'>Add New Instruction</button>
+				))}
+				<button onClick={handleAddInstructionClick} className='button'>Add New Instruction</button>
+
 				<div className='field'>
 					<div className='control'>
 						<label className='checkbox'>
@@ -60,8 +91,9 @@ function App() {
 						</label>
 					</div>
 				</div>
-				<button type='submit' className='button'>Save Recipe</button>
-			</form>
+
+				<button onClick={handleRecipeSave} className='button save-recipe'>Save Recipe</button>
+			</div>
 			<button onClick={() => {setModalVisible(false)}} className='modal-close is-large' aria-label='close'></button>
 			</div>
 		</div>
