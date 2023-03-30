@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState} from 'react';
 import './bulma.min.css';
 import './App.css';
 
@@ -8,10 +8,15 @@ function App() {
 	const [ingredientsNumbers, setingredientsNumbers] = useState([1]);
 	const [instructionsNumbers, setInstructionsNumbers] = useState([1]);
 
+	const [currentName, setCurrentName] = useState('');
+	const [isCurrentFavorite, setIsCurrentFavorite] = useState(false);
+
 	function handleRecipeItemClick(event) {
 		const recipeID = event.target.getAttribute('data-recipe-id');
-		setingredientsNumbers([1]);
-		setInstructionsNumbers([1]);
+		const recipe = recipes.find(item => item.id.toString() === recipeID);
+		setCurrentName(recipe.name);
+		//setingredientsNumbers([1]);
+		//setInstructionsNumbers([1]);
 		setModalVisible(true);
 	}
 
@@ -32,8 +37,7 @@ function App() {
 	}
 
 	function handleRecipeSave(event) {
-		const form = event.target.parentElement;
-		//const name = form.
+		
 		//setModalVisible(false);
 	}
 
@@ -60,7 +64,7 @@ function App() {
 				<div className='field'>
 					<label className='label'>Name</label>
 					<div className='control'>
-						<input className='input' type='text' placeholder='e.g. Pepperoni Pizza' />
+						<input defaultValue={currentName} className='input' type='text' placeholder='e.g. Pepperoni Pizza' />
 					</div>
 				</div>
 
