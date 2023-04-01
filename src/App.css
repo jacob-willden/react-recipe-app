@@ -21,6 +21,11 @@
 .delete-recipe {
     margin-top: 1rem;
     margin-left: 1rem;
+    display: none;
+}
+
+.delete-recipe.visible {
+    display: inline;
 }
 
 .notification {
@@ -28,7 +33,7 @@
     display: none;
 }
 
-.notification.confirmation-visible {
+.notification.visible {
     display: block;
 }
 

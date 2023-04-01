@@ -5,6 +5,8 @@ import './App.css';
 function App() {
 	const [modalVisible, setModalVisible] = useState(false);
 	const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
+	const [deleteButtonVisible, setDeleteButtonVisible] = useState(false);
+
 	const [recipes, setRecipes] = useState([{id: 1, name: 'Blue Milk', favorite: true, ingredients: [''], instructions: ['']}]);
 
 	const [currentID, setCurrentID] = useState(-1);
@@ -27,6 +29,8 @@ function App() {
 
 	function handleNewRecipeClick() {
 		setDeleteConfirmVisible(false);
+		setDeleteButtonVisible(false);
+
 		setCurrentID(recipes.length);
 		setCurrentName('');
 		setCurrentIngredients(['']);
@@ -36,9 +40,11 @@ function App() {
 	}
 
 	function handleRecipeItemClick(event) {
+		setDeleteConfirmVisible(false);
+		setDeleteButtonVisible(true);
+
 		const recipeID = event.target.getAttribute('data-recipe-id') * 1;
 		const recipe = recipes.find(item => item.id === recipeID);
-		setDeleteConfirmVisible(false);
 		setCurrentID(recipeID);
 		setCurrentName(recipe.name);
 		setCurrentIngredients(recipe.ingredients);
@@ -139,15 +145,15 @@ function App() {
 				</div>
 
 				<button onClick={handleRecipeSave} className='button is-success save-recipe'>Save Recipe</button>
-				<button onClick={() => {setDeleteConfirmVisible(true)}} className='button is-danger delete-recipe'>Delete Recipe</button>
+				<button onClick={() => {setDeleteConfirmVisible(true)}} className={`button is-danger delete-recipe ${deleteButtonVisible ? 'visible' : ''}`}>Delete Recipe</button>
 
-				<div className={`notification is-danger is-light ${deleteConfirmVisible ? 'confirmation-visible' : ''}`}>
+				<div className={`notification is-danger is-light ${deleteConfirmVisible ? 'visible' : ''}`}>
 					<button onClick={() => {setDeleteConfirmVisible(false)}} className='delete' aria-label='Cancel recipe deletion'></button>
 					Confirm deletion of this recipe? <strong>This action cannot be undone.</strong>
 					<button onClick={handleRecipeDelete} className='button is-danger confirm-delete'>Yes, Delete</button>
 				</div>
 			</div>
-			<button onClick={() => {setModalVisible(false)}} className='modal-close is-large' aria-label='close'></button>
+			<button onClick={() => {setModalVisible(false)}} className='modal-close is-large' aria-label='Close'></button>
 			</div>
 			</div>
 		</div>
