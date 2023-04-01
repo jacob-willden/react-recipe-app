@@ -7,7 +7,7 @@ function App() {
 	const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
 	const [deleteButtonVisible, setDeleteButtonVisible] = useState(false);
 
-	const [recipes, setRecipes] = useState([{id: 1, name: 'Blue Milk', favorite: true, ingredients: [''], instructions: ['']}]);
+	const [recipes, setRecipes] = useState([]);
 
 	const [currentID, setCurrentID] = useState(-1);
 	const [currentName, setCurrentName] = useState('');
