@@ -14,18 +14,13 @@ function App() {
 	function updateCurrentIngredient(event) {
 		const value = event.target.value;
 		const index = event.target.getAttribute('data-index');
-		console.log(currentIngredients.map((ingredient, i) => i === index ? value : ingredient));
-		//setCurrentIngredients(currentIngredients.map((ingredient, i) => i === index ? value : ingredient));
-		console.log(value, index);
-		//console.log(currentIngredients);
+		setCurrentIngredients(currentIngredients.map((ingredient, i) => i.toString() === index ? value : ingredient));
 	}
 
 	function updateCurrentInstruction(event) {
-		const instruction = event.target.value;
+		const value = event.target.value;
 		const index = event.target.getAttribute('data-index');
-		//setCurrentIngredients(values => values.map((value, i) => i === index ? ingredient : value));
-		console.log(instruction, index);
-		//console.log(currentIngredients);
+		setCurrentInstructions(currentInstructions.map((instruction, i) => i.toString() === index ? value : instruction));
 	}
 
 	function handleRecipeItemClick(event) {
