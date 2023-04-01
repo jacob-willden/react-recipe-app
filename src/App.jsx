@@ -104,7 +104,6 @@ function App() {
 					))}
 				</ul>
 			</div>
-			<button onClick={() => console.log(recipes)}>Log Recipes</button>
 			<div className={`modal ${modalVisible ? 'is-active' : ''}`}>
 			<div className='modal-background'></div>
 			<div className='modal-content'>
