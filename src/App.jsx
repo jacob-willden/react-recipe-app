@@ -4,8 +4,9 @@ import './App.css';
 
 function App() {
 	const [modalVisible, setModalVisible] = useState(false);
-	const [recipes, setRecipes] = useState([{id: 1, name: 'Blue Milk', favorite: true}]);
+	const [recipes, setRecipes] = useState([{id: 1, name: 'Blue Milk', favorite: true, ingredients: [''], instructions: ['']}]);
 
+	const [currentID, setCurrentID] = useState(-1);
 	const [currentName, setCurrentName] = useState('');
 	const [currentIngredients, setCurrentIngredients] = useState(['']);
 	const [currentInstructions, setCurrentInstructions] = useState(['']);
@@ -13,22 +14,23 @@ function App() {
 
 	function updateCurrentIngredient(event) {
 		const value = event.target.value;
-		const index = event.target.getAttribute('data-index');
-		setCurrentIngredients(currentIngredients.map((ingredient, i) => i.toString() === index ? value : ingredient));
+		const index = event.target.getAttribute('data-index') * 1;
+		setCurrentIngredients(currentIngredients.map((ingredient, i) => i === index ? value : ingredient));
 	}
 
 	function updateCurrentInstruction(event) {
 		const value = event.target.value;
-		const index = event.target.getAttribute('data-index');
-		setCurrentInstructions(currentInstructions.map((instruction, i) => i.toString() === index ? value : instruction));
+		const index = event.target.getAttribute('data-index') * 1;
+		setCurrentInstructions(currentInstructions.map((instruction, i) => i === index ? value : instruction));
 	}
 
 	function handleRecipeItemClick(event) {
-		const recipeID = event.target.getAttribute('data-recipe-id');
-		const recipe = recipes.find(item => item.id.toString() === recipeID);
+		const recipeID = event.target.getAttribute('data-recipe-id') * 1;
+		const recipe = recipes.find(item => item.id === recipeID);
+		setCurrentID(recipeID);
 		setCurrentName(recipe.name);
-		// setCurrentIngredients();
-		// currentInstructions();
+		setCurrentIngredients(recipe.ingredients);
+		setCurrentInstructions(recipe.instructions);
 		setIsCurrentFavorite(recipe.favorite);
 		setModalVisible(true);
 	}
@@ -42,16 +44,22 @@ function App() {
 	}
 
 	function handleRecipeSave() {
-		//setModalVisible(false);
-		console.log(currentName);
-		// handle submit logic using currentName
+		console.log('isCurrentFavorite:', isCurrentFavorite);
+		const newRecipe = {
+			id: currentID,
+			name: currentName,
+			ingredients: currentIngredients,
+			instructions: currentInstructions,
+			favorite: isCurrentFavorite
+		};
+		setRecipes(recipes.map(recipe => recipe.id === currentID ? newRecipe : recipe));
+		setModalVisible(false);
 	}
 
 	return (
 		<div id='main'>
 			<h1 className='title'>React Recipe App</h1>
 			<button className='button'>Add New</button>
-			<button className='button'>Delete</button>
 			<div className='menu'>
 				<p className='menu-label'>
 					Your Recipes
@@ -64,6 +72,7 @@ function App() {
 					))}
 				</ul>
 			</div>
+			<button onClick={() => console.log(recipes)}>Boop</button>
 			<div className={`modal ${modalVisible ? 'is-active' : ''}`}>
 			<div className='modal-background'></div>
 			<div className='modal-content'>
@@ -71,9 +80,11 @@ function App() {
 				<div className='field'>
 					<label className='label'>Name</label>
 					<div className='control'>
-						<input value={currentName} onChange={setCurrentName} className='input' type='text' placeholder='e.g. Pepperoni Pizza' />
+						<input defaultValue={currentName} onChange={(event) => setCurrentName(event.target.value)} className='input' type='text' placeholder='e.g. Pepperoni Pizza' />
 					</div>
 				</div>
+
+				<button onClick={() => console.log(currentName)}>currentName</button>
 
 				{currentIngredients.map((ingredient, index) => (
 					<div className='field' key={index}>
@@ -98,13 +109,13 @@ function App() {
 				<div className='field'>
 					<div className='control'>
 						<label className='checkbox'>
-							<input checked={isCurrentFavorite} onChange={setIsCurrentFavorite} type='checkbox' /> Favorite?
+							<input defaultChecked={isCurrentFavorite} onChange={(event) => setIsCurrentFavorite(!event.checked)} type='checkbox' /> Favorite?
 						</label>
 					</div>
 				</div>
 
-				<button onClick={handleRecipeSave} className='button save-recipe'>Save Recipe</button>
-				<button onClick={() => console.log(currentIngredients)}>Boop</button>
+				<button onClick={handleRecipeSave} className='button is-success save-recipe'>Save Recipe</button>
+				<button className='button is-danger'>Delete Recipe</button>
 			</div>
 			<button onClick={() => {setModalVisible(false)}} className='modal-close is-large' aria-label='close'></button>
 			</div>

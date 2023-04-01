@@ -13,3 +13,8 @@
 .save-recipe {
     margin-top: 1rem;
 }
+
+.is-danger {
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
