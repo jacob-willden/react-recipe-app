@@ -4,6 +4,7 @@ import './App.css';
 
 function App() {
 	const [modalVisible, setModalVisible] = useState(false);
+	const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
 	const [recipes, setRecipes] = useState([{id: 1, name: 'Blue Milk', favorite: true, ingredients: [''], instructions: ['']}]);
 
 	const [currentID, setCurrentID] = useState(-1);
@@ -73,6 +74,13 @@ function App() {
 		setModalVisible(false);
 	}
 
+	function handleRecipeDelete() {
+		// Confirmation first?
+		setRecipes(recipes.filter(recipe => recipe.id === !currentID));
+		setDeleteConfirmVisible(false);
+		setModalVisible(false);
+	}
+
 	return (
 		<div id='main'>
 			<h1 className='title'>React Recipe App</h1>
@@ -130,7 +138,13 @@ function App() {
 				</div>
 
 				<button onClick={handleRecipeSave} className='button is-success save-recipe'>Save Recipe</button>
-				<button className='button is-danger'>Delete Recipe</button>
+				<button onClick={() => {setDeleteConfirmVisible(true)}} className='button is-danger delete-recipe'>Delete Recipe</button>
+
+				<div className={`notification is-danger is-light ${deleteConfirmVisible ? 'confirmation-visible' : ''}`}>
+					<button onClick={() => {setDeleteConfirmVisible(false)}} className='delete' aria-label='Cancel recipe deletion'></button>
+					Confirm deletion of this recipe? <strong>This action cannot be undone.</strong>
+					<button onClick={handleRecipeDelete} className='button is-danger confirm-delete'>Yes, Delete</button>
+				</div>
 			</div>
 			<button onClick={() => {setModalVisible(false)}} className='modal-close is-large' aria-label='close'></button>
 			</div>

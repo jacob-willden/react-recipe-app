@@ -10,11 +10,29 @@
     margin-bottom: 2rem;
 }
 
+.box {
+    margin-bottom: 0;
+}
+
 .save-recipe {
     margin-top: 1rem;
 }
 
-.is-danger {
+.delete-recipe {
     margin-top: 1rem;
     margin-left: 1rem;
+}
+
+.notification {
+    margin-top: -1rem;
+    display: none;
+}
+
+.notification.confirmation-visible {
+    display: block;
+}
+
+.confirm-delete {
+    margin-top: 1rem;
+    margin-bottom: 0;
 }
