@@ -53,7 +53,6 @@ function App() {
 	}
 
 	function handleRecipeSave() {
-		console.log('isCurrentFavorite:', isCurrentFavorite);
 		const newRecipe = {
 			id: currentID,
 			name: currentName,
@@ -61,7 +60,16 @@ function App() {
 			instructions: currentInstructions,
 			favorite: isCurrentFavorite
 		};
-		setRecipes(recipes.map(recipe => recipe.id === currentID ? newRecipe : recipe));
+		const oldRecipe = recipes.find(recipe => recipe.id === currentID);
+		if(oldRecipe) {
+			setRecipes(recipes.map(recipe => recipe.id === currentID ? newRecipe : recipe));
+		}
+		else {
+			setRecipes([
+				...recipes,
+				newRecipe
+			]);
+		}
 		setModalVisible(false);
 	}
 
@@ -81,7 +89,7 @@ function App() {
 					))}
 				</ul>
 			</div>
-			<button onClick={() => console.log(recipes)}>Boop</button>
+			<button onClick={() => console.log(recipes)}>Log Recipes</button>
 			<div className={`modal ${modalVisible ? 'is-active' : ''}`}>
 			<div className='modal-background'></div>
 			<div className='modal-content'>
@@ -92,8 +100,6 @@ function App() {
 						<input defaultValue={currentName} onChange={(event) => setCurrentName(event.target.value)} className='input' type='text' placeholder='e.g. Pepperoni Pizza' />
 					</div>
 				</div>
-
-				<button onClick={() => console.log(isCurrentFavorite)}>isCurrentFavorite</button>
 
 				{currentIngredients.map((ingredient, index) => (
 					<div className='field' key={index}>
