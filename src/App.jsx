@@ -24,6 +24,15 @@ function App() {
 		setCurrentInstructions(currentInstructions.map((instruction, i) => i === index ? value : instruction));
 	}
 
+	function handleNewRecipeClick() {
+		setCurrentID(recipes.length);
+		setCurrentName('');
+		setCurrentIngredients(['']);
+		setCurrentInstructions(['']);
+		setIsCurrentFavorite(false);
+		setModalVisible(true);
+	}
+
 	function handleRecipeItemClick(event) {
 		const recipeID = event.target.getAttribute('data-recipe-id') * 1;
 		const recipe = recipes.find(item => item.id === recipeID);
@@ -59,7 +68,7 @@ function App() {
 	return (
 		<div id='main'>
 			<h1 className='title'>React Recipe App</h1>
-			<button className='button'>Add New</button>
+			<button onClick={handleNewRecipeClick} className='button'>Add New</button>
 			<div className='menu'>
 				<p className='menu-label'>
 					Your Recipes
@@ -84,7 +93,7 @@ function App() {
 					</div>
 				</div>
 
-				<button onClick={() => console.log(currentName)}>currentName</button>
+				<button onClick={() => console.log(isCurrentFavorite)}>isCurrentFavorite</button>
 
 				{currentIngredients.map((ingredient, index) => (
 					<div className='field' key={index}>
@@ -109,7 +118,7 @@ function App() {
 				<div className='field'>
 					<div className='control'>
 						<label className='checkbox'>
-							<input defaultChecked={isCurrentFavorite} onChange={(event) => setIsCurrentFavorite(!event.checked)} type='checkbox' /> Favorite?
+							<input checked={isCurrentFavorite} onChange={(event) => setIsCurrentFavorite(event.target.checked)} type='checkbox' /> Favorite?
 						</label>
 					</div>
 				</div>
