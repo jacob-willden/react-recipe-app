@@ -26,6 +26,7 @@ function App() {
 	}
 
 	function handleNewRecipeClick() {
+		setDeleteConfirmVisible(false);
 		setCurrentID(recipes.length);
 		setCurrentName('');
 		setCurrentIngredients(['']);
@@ -37,6 +38,7 @@ function App() {
 	function handleRecipeItemClick(event) {
 		const recipeID = event.target.getAttribute('data-recipe-id') * 1;
 		const recipe = recipes.find(item => item.id === recipeID);
+		setDeleteConfirmVisible(false);
 		setCurrentID(recipeID);
 		setCurrentName(recipe.name);
 		setCurrentIngredients(recipe.ingredients);
@@ -77,7 +79,6 @@ function App() {
 	function handleRecipeDelete() {
 		// Confirmation first?
 		setRecipes(recipes.filter(recipe => recipe.id === !currentID));
-		setDeleteConfirmVisible(false);
 		setModalVisible(false);
 	}
 
