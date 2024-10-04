@@ -41,3 +41,19 @@
     margin-top: 1rem;
     margin-bottom: 0;
 }
+
+.button, .menu-label, input, text-area {
+    border-color: #111;
+}
+
+.button:hover {
+    border-color: #000;
+}
+
+button.is-success {
+    background-color: #216344;
+}
+
+.menu-label {
+    font-size: 1rem;
+}
