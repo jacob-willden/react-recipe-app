@@ -1,9 +1,9 @@
-import {useState} from 'react';
-import './bulma.min.css';
-import './App.css';
+import {useState, useRef} from 'react';
+import './skeleton.min.css';
+import './main.css';
 
 function App() {
-	const [modalVisible, setModalVisible] = useState(false);
+	const modalElement = useRef(null);
 	const [deleteConfirmVisible, setDeleteConfirmVisible] = useState(false);
 	const [deleteButtonVisible, setDeleteButtonVisible] = useState(false);
 
@@ -36,7 +36,7 @@ function App() {
 		setCurrentIngredients(['']);
 		setCurrentInstructions(['']);
 		setIsCurrentFavorite(false);
-		setModalVisible(true);
+		modalElement?.current.showModal();
 	}
 
 	function handleRecipeItemClick(event) {
@@ -50,7 +50,7 @@ function App() {
 		setCurrentIngredients(recipe.ingredients);
 		setCurrentInstructions(recipe.instructions);
 		setIsCurrentFavorite(recipe.favorite);
-		setModalVisible(true);
+		modalElement?.current.showModal();
 	}
 
 	function handleAddIngredientClick() {
@@ -79,13 +79,13 @@ function App() {
 				newRecipe
 			]);
 		}
-		setModalVisible(false);
+		modalElement?.current.close();
 	}
 
 	function handleRecipeDelete() {
 		// Confirmation first?
 		setRecipes(recipes.filter(recipe => recipe.id === !currentID));
-		setModalVisible(false);
+		modalElement?.current.close();
 	}
 
 	return (
@@ -93,21 +93,20 @@ function App() {
 			<h1 className='title'>React Recipe App</h1>
 			<button onClick={handleNewRecipeClick} className='button'>Add New</button>
 			<div className='menu'>
-				<p className='menu-label'>
-					Your Recipes
-				</p>
+				<h2>Your Recipes</h2>
 				<ul className='menu-list'>
 					{recipes.map(recipe => (
 						<li key={recipe.id}>
-							<a onClick={handleRecipeItemClick} data-recipe-id={recipe.id}>{recipe.name}</a>
+							<button onClick={handleRecipeItemClick} data-recipe-id={recipe.id} className="button">{recipe.name}</button>
 						</li>
 					))}
 				</ul>
 			</div>
-			<div className={`modal ${modalVisible ? 'is-active' : ''}`}>
-			<div className='modal-background'></div>
-			<div className='modal-content'>
-				<div className='box'>
+
+			<dialog ref={modalElement}>
+				<button onClick={() => { modalElement?.current.close() }} className="close-button">
+					<img src="/close.svg" alt="Cancel recipe deletion"/>
+				</button>
 				<div className='field'>
 					<label className='label'>Name</label>
 					<div className='control'>
@@ -147,14 +146,13 @@ function App() {
 				<button onClick={() => {setDeleteConfirmVisible(true)}} className={`button is-danger delete-recipe ${deleteButtonVisible ? 'visible' : ''}`}>Delete Recipe</button>
 
 				<div className={`notification is-danger is-light ${deleteConfirmVisible ? 'visible' : ''}`}>
-					<button onClick={() => {setDeleteConfirmVisible(false)}} className='delete' aria-label='Cancel recipe deletion'></button>
+					<button onClick={() => {setDeleteConfirmVisible(false)}} className='close-button'>
+						<img src="/close.svg" alt="Cancel recipe deletion"/>
+					</button>
 					Confirm deletion of this recipe? <strong>This action cannot be undone.</strong>
 					<button onClick={handleRecipeDelete} className='button is-danger confirm-delete'>Yes, Delete</button>
 				</div>
-			</div>
-			<button onClick={() => {setModalVisible(false)}} className='modal-close is-large' aria-label='Close'></button>
-			</div>
-			</div>
+			</dialog>
 		</div>
 	);
 }

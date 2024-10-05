@@ -1,0 +1,170 @@
+a:is(:focus), input:is(:focus), textarea:is(:focus), select:is(:focus), .button:is(:focus) {
+	outline: #145F76 solid 0.2rem;
+	outline-offset: 0.25rem;
+	border-radius: 0.1rem;
+}
+
+.close-button:is(:focus) {
+	outline: #145F76 solid 0.2rem;
+	outline-offset: 0.4rem;
+}
+
+a {
+	color: #145F76;
+}
+
+a:hover {
+	color: #052029;
+}
+
+select:not(:disabled), .button {
+	border-color: #808080;
+}
+
+.button {
+	background-color: #145F76;
+	color: white;
+	text-transform: none;
+	font-size: 1em;
+	cursor: default;
+}
+
+.button:hover {
+	background-color: #052029;
+	color: white;
+}
+
+.button:is(:focus) {
+	color: white;
+}
+
+input[type="checkbox"], input[type="radio"] {
+	width: 1.2em;
+	height: 1.2em;
+	margin-bottom: 0.225em;
+}
+
+label.radio {
+	margin-bottom: 1.2em;
+}
+
+#main {
+	max-width: 80rem;
+	margin: 0 auto;
+	padding: 2rem;
+}
+
+.menu {
+    margin-top: 1rem;
+}
+
+dialog {
+	box-sizing: border-box;
+	min-width: 300px;
+}
+
+.button {
+    margin-bottom: 2rem;
+}
+
+.box:not(:last-child) {
+    margin-bottom: 0;
+}
+
+.save-recipe {
+    margin-top: 1rem;
+}
+
+.save-recipe:hover {
+	background-color: #002402;
+}
+
+.delete-recipe {
+    margin-top: 1rem;
+    margin-left: 1rem;
+	background-color: #AD0000;
+    display: none;
+}
+
+.delete-recipe.visible {
+    display: inline;
+}
+
+.delete-recipe.visible:hover {
+	background-color: #380000;
+}
+
+.notification {
+    margin-top: -1rem;
+    display: none;
+}
+
+.notification.visible {
+    display: block;
+}
+
+.confirm-delete {
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+.button, .menu-label, input[type="text"], textarea {
+    border-color: #111;
+}
+
+.button:hover {
+    border-color: #000;
+}
+
+button.is-success {
+    background-color: #216344;
+}
+
+.menu-list {
+	list-style-type: none;
+}
+
+button[data-recipe-id] {
+	width: 100%;
+}
+
+.notification.is-danger.visible {
+	background-color: #FFEAEF;
+	padding: 2rem;
+	border-radius: 1rem;
+}
+
+.button.is-danger.confirm-delete {
+	display: block;
+	background-color: #AD0000;
+}
+
+.button.confirm-delete:hover {
+	background-color: #380000;
+}
+
+.close-button {
+	display: block;
+	background-color: #ddd;
+	width: 3rem;
+	height: 3rem;
+	border-radius: 100%;
+	border-color: #111;
+	padding: 1rem;
+	float: right;
+	margin-left: 2rem;
+	cursor: default;
+}
+
+.close-button:hover {
+	border-color: #111;
+	background-color: #fff;
+}
+
+.close-button img {
+	width: 1.6rem;
+	height: 1.6rem;
+	position: relative;
+	top: -1.1rem;
+  	left: -0.4rem;
+}
