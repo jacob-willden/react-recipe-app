@@ -105,7 +105,7 @@ function App() {
 
 			<dialog ref={modalElement}>
 				<button onClick={() => { modalElement?.current.close() }} className="close-button">
-					<img src="/close.svg" alt="Cancel recipe deletion"/>
+					<img src="/close.svg" alt="Close"/>
 				</button>
 				<div className='field'>
 					<label className='label'>Name</label>
