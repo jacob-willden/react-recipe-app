@@ -1,3 +1,9 @@
+main {
+	max-width: 80rem;
+	margin: 0 auto;
+	padding: 2rem;
+}
+
 a:is(:focus), input:is(:focus), textarea:is(:focus), select:is(:focus), .button:is(:focus) {
 	outline: #145F76 solid 0.2rem;
 	outline-offset: 0.25rem;
@@ -46,12 +52,6 @@ input[type="checkbox"], input[type="radio"] {
 
 label.radio {
 	margin-bottom: 1.2em;
-}
-
-#main {
-	max-width: 80rem;
-	margin: 0 auto;
-	padding: 2rem;
 }
 
 .menu {

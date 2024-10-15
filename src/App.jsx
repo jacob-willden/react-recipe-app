@@ -89,7 +89,7 @@ function App() {
 	}
 
 	return (
-		<div id='main'>
+		<main>
 			<h1 className='title'>React Recipe App</h1>
 			<button onClick={handleNewRecipeClick} className='button'>Add New</button>
 			<div className='menu'>
@@ -153,7 +153,7 @@ function App() {
 					<button onClick={handleRecipeDelete} className='button is-danger confirm-delete'>Yes, Delete</button>
 				</div>
 			</dialog>
-		</div>
+		</main>
 	);
 }
 
